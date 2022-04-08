@@ -58,7 +58,6 @@ static char sccsid_grafik[] = "@(#)grafik.h	3.4 12/3/01";
 #define WANDLINIE  1
 #define TUERLINIE  2
 
-
 struct punkt
 {
 	int x, y;
@@ -70,9 +69,9 @@ struct kartenlinie
 {
 	struct punkt ecke; /* linkes/oberes Ende der Wand */
 	int laenge;        /* Laenge der Wand */
-	u_char senkrecht;  /* falls Wand von oben nach unten */
-	u_char typ1;       /* Typ der Wand von links/oben */
-	u_char typ2;       /* Typ der Wand von rechts/unten */
+	unsigned char senkrecht;  /* falls Wand von oben nach unten */
+	unsigned char typ1;       /* Typ der Wand von links/oben */
+	unsigned char typ2;       /* Typ der Wand von rechts/unten */
 };
 
 /* enthaelt Koordinaten in Bildpunkten zum Zeichen der Spieler
@@ -81,7 +80,7 @@ struct kartenkreis
 {
 	struct punkt mittelpunkt;
 	int radiusx, radiusy;
-	u_char farbe;
+	unsigned char farbe;
 };
 
 /* enthaelt Koordinaten in Bildpunkten zum Zeichnen der Waende;
@@ -91,8 +90,8 @@ struct flaeche
 	/* ecke[0] links oben, ecke[1] links unten,
 	   ecke[2] rechts unten, ecke[3] rechts oben */
 	struct punkt ecke[4];
-	u_char farbe; /* darf nicht TRANSPARENT sein */
-	u_char tuer;  /* falls Wand eine Tuer ist */
+	unsigned char farbe; /* darf nicht TRANSPARENT sein */
+	unsigned char tuer;  /* falls Wand eine Tuer ist */
 };
 
 struct ausschnitt
@@ -111,7 +110,7 @@ struct kugel
 	/* schattenx wie mittelpunkt.x/radiusx */
 	int schatteny, schattenry;   /* schattenry 0, falls kein Schatten */
 	int blick;                   /* ist -1 falls kein Gesicht */
-	u_char farbe;                /* kann TRANSPARENT sein */
+	unsigned char farbe;                /* kann TRANSPARENT sein */
 };
 
 /* enthaelt gesammelte Daten fuer 3D-Zeichnung und Spruch des Gegners */
@@ -129,7 +128,7 @@ struct objektdaten
 struct punktestand
 {
 	int punkte; /* -1 = nicht die Punkte, nur den Spieler zeichnen */
-	u_char farbe;
+	unsigned char farbe;
 	int hervorheben;
 };
 
