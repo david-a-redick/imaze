@@ -30,13 +30,12 @@
 ** STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 ** IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ** POSSIBILITY OF SUCH DAMAGE.
-**
-**
-** Datei: system.c
-**
-** Kommentar:
-**  Globale systemnahe Kompatibiltaetsroutinen;
-**  Signal-Handling, Timing etc.
+
+Globale systemnahe Kompatibiltaetsroutinen;
+Signal-Handling, Timing etc.
+
+Global System Near Compatibility Routine;
+Signal-Handling, Timing etc.
 */
 
 
@@ -597,39 +596,31 @@ char *benutzer_name(void)
 
 
 /*
-** fehler_text
-**  ermittelt den zur Systemvariable errno passenden Fehlertext
-**
-** Rueckgabewert:
-**  Zeiger in das Feld sys_errlist oder in eine lokale Variable, die
-**  den Fehler als Nummer enthaelt (falls kein Standardtext vorhanden ist)
-**
-** Seiteneffekte:
-**  der zuletzt zurueckgegebene Zeiger wird evtl. ungueltig
+Ermittelt den zur Systemvariable errno passenden Fehlertext
+
+(error_text)
+determines the error text that matches the system variable errno
+
+Rueckgabewert:
+Die POSIX-Fehlermeldungszeichenfolge.
+
+Return value:
+The POSIX error message string.
+
+Seiteneffekte:
+Die zurückgegebene Zeichenfolge muss freigegeben werden.
+
+Side effects:
+The string returned must be freed.
 */
 char *fehler_text(void)
 {
-#ifdef NEED_ERRLIST /* nicht in <errno.h>? */
-	extern char *sys_errlist[]; /* Liste der Standard-Fehlertexte */
-	extern int sys_nerr;        /* Anzahl der Eintraege in sys_errlist */
-#endif
-
-	/* falls errno kein gueltiger Index fuer sys_errlist ist, nur die
-	   Nummer als String zurueckgeben */
-	if (errno < 0 || errno >= sys_nerr)
-	{
-		static char text[5][20]; /* mehrere Puffer fuer Fehlernummer */
-		static int current = 0;
-
-		current = (current + 1) % (sizeof text / sizeof *text);
-
-		sprintf(text[current], "Error #%d", errno);
-
-		/* Zeiger auf Puffer zurueckgeben; Achtung: dieser Zeiger
-		   ist nach ein paar Aufrufen wieder derselbe */
-		return text[current];
+	size_t len = 1024;
+	char *buffer = (char *) malloc(len);
+	int rc = strerror_r(errno, buffer, len);
+	if (0 != rc) {
+		/* Failed to fetch the error message. */
+		snprintf(buffer, len, "call to strerror_r failed, errno = %d", errno);
 	}
-
-	/* Standard-Fehlertext zurueckgeben */
-	return (char *)sys_errlist[errno];
+	return buffer;
 }

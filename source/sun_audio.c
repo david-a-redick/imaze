@@ -116,6 +116,7 @@ void audio_init(void)
 			meldung[2] = text;
 			meldung[3] = fehler_text();
 			uebler_fehler(meldung, NULL);
+			free(meldung[3]);
 		}
 
 		/* Audio-Status abfragen */
@@ -126,6 +127,7 @@ void audio_init(void)
 
 			meldung[3] = fehler_text();
 			uebler_fehler(meldung, NULL);
+			free(meldung[3]);
 		}
 
 		/* Startwert des Audio-Paket-Zaehlers merken */
@@ -147,6 +149,7 @@ void audio_init(void)
 
 			meldung[3] = fehler_text();
 			uebler_fehler(meldung, NULL);
+			free(meldung[3]);
 		}
 	}
 }
@@ -168,6 +171,7 @@ void audio_hw_start(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 }
 
@@ -213,6 +217,7 @@ int audio_hw_is_busy(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 
 	/* Puffer des Audio-Devices noch nicht abgespielt? */

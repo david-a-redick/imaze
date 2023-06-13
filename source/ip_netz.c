@@ -117,6 +117,8 @@ static void netzwerk_fehler(char *ursache)
 
 	/* Fehlermeldung ausgeben */
 	uebler_fehler(meldung, NULL);
+
+	free(meldung[3]);
 }
 
 
@@ -140,6 +142,8 @@ static void milder_netzwerk_fehler(char *ursache)
 	milder_fehler(meldung, NULL);
 
 	verbindung_beenden();
+
+	free(meldung[3]);
 }
 
 
@@ -496,6 +500,8 @@ int verbindung_aufbauen(char *server_name)
 		meldung[5] = fehler_text();
 
 		milder_fehler(meldung, NULL);
+
+		free(meldung[5]);
 
 		/* TCP-Deskriptor wieder freigeben */
 		if (close(tcp_deskriptor))

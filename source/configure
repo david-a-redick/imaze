@@ -78,7 +78,7 @@ esac
 case $OS in
 
 AIX-*)
-	CFlags='-DADDRLEN_T=size_t -DNEED_ERRLIST'
+	CFlags='-DADDRLEN_T=size_t'
 
 	Graphics=Motif
 	;;
@@ -93,7 +93,7 @@ FreeBSD-*)
 	;;
 
 HPUX-*)
-	CFlags='-DNEED_ERRLIST -Ae'
+	CFlags='-Ae'
 
 	Graphics=Motif
 	X11IncDir='/usr/include/X11R5'
@@ -122,7 +122,7 @@ OSF1-*)
 	;;
 
 SunOS-4.*)
-	CFlags='-DNEED_ERRLIST'
+	CFlags=''
 
 	Graphics=XView
 	X11Dir='/usr/openwin'
@@ -132,7 +132,7 @@ SunOS-4.*)
 	;;
 
 SunOS-5.*)
-	CFlags='-DNEED_ERRLIST'
+	CFlags=''
 	LibpathTmpl='-L@ -R@'
 	Libs='-lsocket -lnsl'
 
@@ -144,7 +144,7 @@ SunOS-5.*)
 	;;
 
 ULTRIX-*)
-	CFlags='-std1 -DNEED_ERRLIST'
+	CFlags='-std1'
 
 	Graphics=Motif
 	;;
@@ -170,15 +170,12 @@ while [ $# -ge 1 ]; do
 	[Aa]thena)
 		Graphics=Athena
 		;;
-	
 	[Mm]otif)
 		Graphics=Motif
 		;;
-	
 	[Xx][Vv]iew)
 		Graphics=XView
 		;;
-	
 	[Aa]udio)
 		[ -z "$Audio" -a ! -z "$AudioIf" ] && Audio=$AudioIf
 		[ -z "$AudioCFlags" -a ! -z "$AudioCFlagsIf" ] && \
