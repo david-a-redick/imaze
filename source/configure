@@ -117,7 +117,7 @@ Linux-*)
 	;;
 
 Darwin-*)
-	# MacOS (OSX)
+	# macOS (OSX)
 	# Various stand-alones, e.g. OpenDarwin and PureDarwin, may fall into here
 	# If there are problems then we'll have to beef up the OS detection.
 
