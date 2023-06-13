@@ -4,6 +4,7 @@
 # - - -  iMaze  - - -
 #
 # Copyright (c) 1993-2001 by Hans-Ulrich Kiel & Joerg Czeranski
+# Parts copyrighted 2023 by David A. Redick
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -33,11 +34,8 @@
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-#
-# File: configure
-#
 # SccsID:
-#  @(#)configure	3.4 12/07/01
+#  @(#)configure	3.5 2023-06-13
 #
 # Comment:
 #  Used to build Makefile from Makefile.in
@@ -68,7 +66,6 @@ case $1 in
 OS=*-*)	eval `echo "$1" | sed "$SedQuote"`; shift;;
 OS=*)	eval `echo "${1}-unknown" | sed "$SedQuote"`; shift;;
 esac
-
 
 #----------
 #
@@ -103,13 +100,33 @@ HPUX-*)
 	;;
 
 Linux-*)
+	CFlags='-Wimplicit-function-declaration'
+
 	Graphics=Motif
+
+	# In the past distros partition X headers off in their own directories.
+	# Currently, most merge them into /usr/include/X11 so that various flags are unnecessary.
+	# Leaving causes no harm but confusion.
 	X11Dir='/usr/X11R6'
+
 	XViewDir='/usr/openwin'
 
 	Audio=voxware
 
 	JoystickIf=linux
+	;;
+
+Darwin-*)
+	# MacOS (OSX)
+	# Various stand-alones, e.g. OpenDarwin and PureDarwin, may fall into here
+	# If there are problems then we'll have to beef up the OS detection.
+
+	CFlags='-Wimplicit-function-declaration'
+
+	Graphics=Motif
+
+	X11Dir='/opt/X11'
+
 	;;
 
 OSF1-*)
