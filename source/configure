@@ -4,6 +4,7 @@
 # - - -  iMaze  - - -
 #
 # Copyright (c) 1993-2001 by Hans-Ulrich Kiel & Joerg Czeranski
+# Parts copyrighted 2023 by David A. Redick
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -33,11 +34,8 @@
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-#
-# File: configure
-#
 # SccsID:
-#  @(#)configure	3.4 12/07/01
+#  @(#)configure	3.5 2023-06-13
 #
 # Comment:
 #  Used to build Makefile from Makefile.in
@@ -69,7 +67,6 @@ OS=*-*)	eval `echo "$1" | sed "$SedQuote"`; shift;;
 OS=*)	eval `echo "${1}-unknown" | sed "$SedQuote"`; shift;;
 esac
 
-
 #----------
 #
 #	Add OS specific values
@@ -78,7 +75,7 @@ esac
 case $OS in
 
 AIX-*)
-	CFlags='-DADDRLEN_T=size_t -DNEED_ERRLIST'
+	CFlags='-DADDRLEN_T=size_t'
 
 	Graphics=Motif
 	;;
@@ -93,7 +90,7 @@ FreeBSD-*)
 	;;
 
 HPUX-*)
-	CFlags='-DNEED_ERRLIST -Ae'
+	CFlags='-Ae'
 
 	Graphics=Motif
 	X11IncDir='/usr/include/X11R5'
@@ -103,13 +100,33 @@ HPUX-*)
 	;;
 
 Linux-*)
+	CFlags='-Wimplicit-function-declaration'
+
 	Graphics=Motif
+
+	# In the past distros partition X headers off in their own directories.
+	# Currently, most merge them into /usr/include/X11 so that various flags are unnecessary.
+	# Leaving causes no harm but confusion.
 	X11Dir='/usr/X11R6'
+
 	XViewDir='/usr/openwin'
 
 	Audio=voxware
 
 	JoystickIf=linux
+	;;
+
+Darwin-*)
+	# macOS (OSX)
+	# Various stand-alones, e.g. OpenDarwin and PureDarwin, may fall into here
+	# If there are problems then we'll have to beef up the OS detection.
+
+	CFlags='-Wimplicit-function-declaration'
+
+	Graphics=Motif
+
+	X11Dir='/opt/X11'
+
 	;;
 
 OSF1-*)
@@ -122,7 +139,7 @@ OSF1-*)
 	;;
 
 SunOS-4.*)
-	CFlags='-DNEED_ERRLIST'
+	CFlags=''
 
 	Graphics=XView
 	X11Dir='/usr/openwin'
@@ -132,7 +149,7 @@ SunOS-4.*)
 	;;
 
 SunOS-5.*)
-	CFlags='-DNEED_ERRLIST'
+	CFlags=''
 	LibpathTmpl='-L@ -R@'
 	Libs='-lsocket -lnsl'
 
@@ -144,7 +161,7 @@ SunOS-5.*)
 	;;
 
 ULTRIX-*)
-	CFlags='-std1 -DNEED_ERRLIST'
+	CFlags='-std1'
 
 	Graphics=Motif
 	;;
@@ -170,15 +187,12 @@ while [ $# -ge 1 ]; do
 	[Aa]thena)
 		Graphics=Athena
 		;;
-	
 	[Mm]otif)
 		Graphics=Motif
 		;;
-	
 	[Xx][Vv]iew)
 		Graphics=XView
 		;;
-	
 	[Aa]udio)
 		[ -z "$Audio" -a ! -z "$AudioIf" ] && Audio=$AudioIf
 		[ -z "$AudioCFlags" -a ! -z "$AudioCFlagsIf" ] && \

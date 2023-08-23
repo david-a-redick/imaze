@@ -30,13 +30,12 @@
 ** STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 ** IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ** POSSIBILITY OF SUCH DAMAGE.
-**
-**
-** Datei: Xt_fenster.c
-**
-** Kommentar:
-**  Fensterverwaltung auf Basis des X Toolkit,
-**  wird fuer Motif und Athena verwendet
+
+Fensterverwaltung auf Basis des X Toolkit,
+wird fuer Motif und Athena verwendet
+
+Window management based on the X Toolkit,
+used for Motif and Athena
 */
 
 
@@ -47,6 +46,7 @@
 #include <X11/StringDefs.h>
 #include <X11/Shell.h>
 
+#include "system.h"
 #include "argv.h"
 #include "grafik.h"
 #include "signale.h"

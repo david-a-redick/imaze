@@ -1,0 +1,16 @@
+# Generated files
+Makefile
+Makefile.backup
+trigtab.c
+
+# Compiled C code.
+*.o
+
+# Various binary executables.
+genlab
+gentrigtab
+imaze
+imazesrv
+imazestat
+ninja
+xlabed

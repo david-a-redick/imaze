@@ -108,6 +108,7 @@ void joystick_trigger(void)
 
 			meldung[3] = fehler_text();
 			uebler_fehler(meldung, NULL);
+			free(meldung[3]);
 		}
 
 		/* stimmt die Laenge der gelesenen Daten? */
@@ -181,6 +182,7 @@ int joystick_init(void)
 			strlen(joystick_device) + 20);
 		sprintf(meldung[2], "Can't open %s:", joystick_device);
 		meldung[3] = fehler_text();
+			free(meldung[3]);
 
 		/* sonstiger Fehler? */
 		if (errno != EBUSY)
@@ -218,6 +220,7 @@ int joystick_init(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 
 	/* xmin, xmax, ... noch nicht initialisiert */
@@ -236,6 +239,7 @@ void joystick_close(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 
 	/* Joystick nicht mehr abfragen */

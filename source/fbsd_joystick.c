@@ -119,6 +119,7 @@ void joystick_trigger(void)
 
 			meldung[3] = fehler_text();
 			uebler_fehler(meldung, NULL);
+			free(meldung[3]);
 		}
 
 		/* stimmt die Laenge der gelesenen Daten? */
@@ -223,6 +224,7 @@ int joystick_init(void)
 		}
 
 		speicher_freigeben((void **)&meldung[2]);
+		free(meldung[3]);
 	}
 
 	joystick_maxval = 10000; /* 10ms Timeout (Pfusch!) */
@@ -236,6 +238,7 @@ int joystick_init(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 
 	/* xmin, xmax, ... noch nicht initialisiert */
@@ -254,6 +257,7 @@ void joystick_close(void)
 
 		meldung[3] = fehler_text();
 		uebler_fehler(meldung, NULL);
+		free(meldung[3]);
 	}
 
 	/* Joystick nicht mehr abfragen */

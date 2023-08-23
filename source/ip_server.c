@@ -196,6 +196,8 @@ static void netzwerk_fehler(char *ursache)
 
 	/* Fehlermeldung ausgeben */
 	uebler_fehler(meldung, NULL);
+
+	free(meldung[3]);
 }
 
 

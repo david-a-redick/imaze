@@ -30,13 +30,13 @@
 ** STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 ** IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ** POSSIBILITY OF SUCH DAMAGE.
-**
-**
-** Datei: bewegung.c
-**
-** Kommentar:
-**  Bewegt die Spieler und Schuesse durch das Labyrinth und stellt
-**  die Pakete fuer die Clients zusammen
+
+Kommentar:
+Bewegt die Spieler und Schuesse durch das Labyrinth und stellt
+die Pakete fuer die Clients zusammen
+
+Move the players and shoot through the maze and pose
+the packages for the clients together
 */
 
 
@@ -231,7 +231,6 @@ static char **gegner_naehe;
 
 
 /*
-** atan
 **  berechnet den Arkustangens von x/y unter Beruecksichtigung des
 **  Quadranten;
 **
@@ -244,7 +243,7 @@ static char **gegner_naehe;
 **  0         fuer x=0, y=1;  TRIGANZ/4   fuer x=1,  y=0;
 **  TRIGANZ/2 fuer x=0, y=-1; TRIGANZ*3/4 fuer x=-1, y=0
 */
-static int atan(int x, int y)
+static int imaze_atan(int x, int y)
 {
 	int korrektur; /* Korrekturwinkel fuer Quadranten */
 
@@ -560,7 +559,7 @@ static int punkt_trifft_kreis(int x, int y, int winkel, int strecke,
 		sy = y - strecke * costab[winkel] / TRIGFAKTOR;
 
 		/* Winkel, an dem der Kollisionspunkt auf dem Kreis liegt */
-		korrektur->winkel1 = (atan(sx, sy) + TRIGANZ / 2) % TRIGANZ;
+		korrektur->winkel1 = (imaze_atan(sx, sy) + TRIGANZ / 2) % TRIGANZ;
 
 		/* nach links abgleiten? */
 		if ((winkel + 3 * TRIGANZ / 2 - korrektur->winkel1) %
@@ -1726,7 +1725,7 @@ again:
 				/* nach Osten oder Westen abgleiten */
 				dy = -dy;
 
-			neublick = atan(dx, dy) / (TRIGANZ / WINKANZ);
+			neublick = imaze_atan(dx, dy) / (TRIGANZ / WINKANZ);
 			schritt = frei; /* kann auch 0 sein */
 
 			ergebnis = SCHUSS_PRALLT_AB;
