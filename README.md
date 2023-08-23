@@ -194,7 +194,7 @@ It is no bug that you can't leave a one way door in the other direction,
 even if you have just touched it.
 
 
-Where to get iMaze from?
+Where to get imaze from?
 ========================
 
 https://github.com/david-a-redick/imaze
